@@ -32,9 +32,8 @@
         <button ng-controller="RoomCtrl" class="btn btn-default" ng-click="open()">Create New Room</button>
         </div> 
 
-          <ul class="nav nav-sidebar">
-            <li><button type="btn btn-default">Room1</button></li>
-            <li><button type="btn btn-default">Room2</button></li>
+          <ul class="nav nav-sidebar" ng-repeat="room in rooms">
+            <li><button type="btn btn-default">{{room.$value}}</button></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

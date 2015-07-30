@@ -89,7 +89,7 @@
 
       .when('/chat', {
         templateUrl: 'views/chat.html',
-        //controller: 'ChatCtrl'
+        controller: 'ChatCtrl'
       })
       .otherwise({redirectTo: '/'});
   }])

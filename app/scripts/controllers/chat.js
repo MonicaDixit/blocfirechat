@@ -7,13 +7,15 @@
  * A demo of using AngularFire to manage a synchronized list.
  */
 angular.module('firechatApp')
-  .controller('ChatCtrl', function ($scope, $timeout) {
+  .controller('ChatCtrl', function ($scope, $timeout, roomService) {
     // synchronize a read-only, synchronized array of messages, limit to most recent 10
 
     //$scope.messages = $firebaseArray(Ref.child('messages').limitToLast(10));
 
     // display any errors
     //$scope.messages.$loaded().catch(alert);
+
+    $scope.rooms = roomService.getrooms();
 
     // provide a method for adding a message
     this.addMessage = function(newMessage) {
@@ -24,13 +26,6 @@ angular.module('firechatApp')
           .catch(alert);
       }
     };
-
-    this.addRoom = function(newroom){
-      var createroom = newroom;
-      console.log('hello');
-      console.log('createroom' , newroom); 
-
-    }
 
     function alert(msg) {
       $scope.err = msg;
