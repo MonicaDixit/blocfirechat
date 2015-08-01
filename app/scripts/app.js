@@ -19,5 +19,27 @@ angular.module('firechatApp', [
     'firebase.utils',
     'simpleLogin',
     'ui.router',
-    'ui.bootstrap'
-  ]);
+    'ui.bootstrap',
+    'ngCookies'
+  ])
+  .run(['$cookies', '$modal', function($cookies, $modal){
+    if(!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === ''){
+        $modal.open({
+          //animation: $scope.animationsEnabled,
+          templateUrl: '/views/usermodalcontent.html',
+          controller: function($scope)
+          {
+              $scope.ok = function ()
+               {
+                 $cookies.blocChatCurrentUser = $scope.username;
+              //$modalInstance.close();
+               }
+
+           }
+        });
+    }
+    else{
+        console.log('$cookies.blocChatCurrentUser', $cookies.blocChatCurrentUser);
+    }
+
+  }]);
