@@ -22,17 +22,18 @@ angular.module('firechatApp', [
     'ui.bootstrap',
     'ngCookies'
   ])
-  .run(['$cookies', '$modal', function($cookies, $modal){
+  .run(['$cookies', '$modal', 
+    function($cookies, $modal){
     if(!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === ''){
-        $modal.open({
+        var modalInstance = $modal.open({
           //animation: $scope.animationsEnabled,
           templateUrl: '/views/usermodalcontent.html',
-          controller: function($scope)
+          controller: function($scope, $modalInstance)
           {
               $scope.ok = function ()
                {
                  $cookies.blocChatCurrentUser = $scope.username;
-              //$modalInstance.close();
+                 $modalInstance.close();
                }
 
            }

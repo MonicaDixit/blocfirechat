@@ -7,30 +7,62 @@
  * A demo of using AngularFire to manage a synchronized list.
  */
 angular.module('firechatApp')
-  .controller('ChatCtrl', function ($scope, $timeout, roomService) {
+  .controller('ChatCtrl', function ($scope, $timeout, roomService, $cookies, $firebase, FBURL) {
     // synchronize a read-only, synchronized array of messages, limit to most recent 10
 
     //$scope.messages = $firebaseArray(Ref.child('messages').limitToLast(10));
+    var ref = new Firebase(FBURL);
+    $scope.messages = $firebase(ref.child('messages')).$asArray();
 
+    
     // display any errors
     //$scope.messages.$loaded().catch(alert);
 
     $scope.rooms = roomService.getrooms();
-
+    $scope.room = '';
+    
     // provide a method for adding a message
-    this.addMessage = function(newMessage) {
-      if( newMessage ) {
+    $scope.addMessage = function(newMessage) {
+      
+      if( newMessage && $cookies.roomid) {
+        console.log('room' ,$scope.room);
+
         // push a message to the end of the array
-        $scope.messages.$add({text: newMessage})
+        var messagerow= {
+          sender: $cookies.blocChatCurrentUser,
+          roomid: $scope.room.$id,
+          roomname: $scope.room.$value,
+          text: newMessage,
+         } 
+
+        $scope.messages.$add(messagerow)
           // display any errors
-          .catch(alert);
+          .catch();
+      }
+      else{
+        console.log('room in else', $cookies.roomid);
+        alert('Please select a room');
+        return;
       }
     };
 
-    function alert(msg) {
-      $scope.err = msg;
-      $timeout(function() {
-        $scope.err = null;
-      }, 5000);
+    $scope.setCurrentRoom = function(room){
+      $scope.room = room;
+      $cookies.roomid = $scope.room.$id;
     }
+    
+    $scope.exitCurrentRoom = function(){
+      $scope.room = '';
+    }
+
+    $scope.isCurrentRoomMessage = function(message){
+      return (message.roomid === $scope.room.$id);
+    }
+
+    // function alert(msg) {
+    //   $scope.err = msg;
+    //   $timeout(function() {
+    //     $scope.err = null;
+    //   }, 5000);
+    // }
   });

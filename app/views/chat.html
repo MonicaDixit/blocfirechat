@@ -1,4 +1,4 @@
-    <div class="container-fluid">
+      <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
         <div class="container">
@@ -6,17 +6,26 @@
         </div> 
 
           <ul class="nav nav-sidebar" ng-repeat="room in rooms">
-            <li><button type="btn btn-default">{{room.$value}}</button></li>
+            <li><button class="btn btn-default" ng-click="setCurrentRoom(room)">{{room.$value}}</button></li>
+            <button class="btn btn-danger" ng-click="exitCurrentRoom()">Quit room</button>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1>Messages</h1>
 
-          
-          <div class="table-responsive">
+          <!-- <div class="table-responsive">
             <ul class="list-unstyled" id="messages" ng-show="messages.length">
-              <li ng-repeat="message in messages | reverse">{{message.text}}</li>
+              <li ng-repeat="message in messages | reverse">{{message.sender}} says: {{message.text}}{{message.sender}}{{message.room.$value}}</li>
             </ul>
+          </div> -->
+          <div class="container">
+            <table class="table table-striped" ng-show="messages.length">
+              <tr>Current Room:{{room.$value}}</tr>
+              <tr ng-repeat="message in messages | reverse" ng-show="isCurrentRoomMessage(message)">
+              <td>{{message.sender}}&nbsp;&nbsp; says:</td>
+              <td>{{message.text}}</td>
+              </tr>
+            </table>
           </div>
           <form>
               <textarea placeholder="Message..." ng-model="newMessage"></textarea>
