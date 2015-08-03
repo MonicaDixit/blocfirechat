@@ -33,6 +33,7 @@ angular.module('firechatApp')
           roomid: $scope.room.$id,
           roomname: $scope.room.$value,
           text: newMessage,
+          sentat: timeTodayDateElse(new Date())
          } 
 
         $scope.messages.$add(messagerow)
@@ -58,6 +59,21 @@ angular.module('firechatApp')
     $scope.isCurrentRoomMessage = function(message){
       return (message.roomid === $scope.room.$id);
     }
+
+    function timeTodayDateElse(date){
+    moment.locale('en', {
+        'calendar' : {
+            'lastDay' : 'D MMMM',
+             'sameDay' : 'h:mmA',
+            'nextDay' : 'D MMMM',
+            'lastWeek' : 'D MMMM',
+            'nextWeek' : 'D MMMM',
+            'sameElse' : 'D MMMM'
+       }
+    });
+
+    return moment(date).calendar();
+}
 
     // function alert(msg) {
     //   $scope.err = msg;

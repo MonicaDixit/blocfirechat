@@ -32,8 +32,10 @@ angular.module('firechatApp', [
           {
               $scope.ok = function ()
                {
-                 $cookies.blocChatCurrentUser = $scope.username;
-                 $modalInstance.close();
+                if($scope.username && $scope.username !=''){
+                  $cookies.blocChatCurrentUser = $scope.username;
+                  $modalInstance.close();
+                }  
                }
 
            }

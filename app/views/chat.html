@@ -32,6 +32,7 @@
               <tr ng-repeat="message in messages | reverse" ng-show="isCurrentRoomMessage(message)">
               <td>{{message.sender}}&nbsp;&nbsp; says:</td>
               <td>{{message.text}}</td>
+              <td>{{message.sentat}}</td>
               </tr>
             </table>
              <form ng-show="room">
