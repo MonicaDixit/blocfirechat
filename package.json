@@ -1,7 +1,13 @@
 {
   "name": "firechat",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "express": "~3.0.0",
+    "gzippo": "^0.2.0",
+    "morgan": "^1.6.0",
+    "hapi": "^7.5.0",
+    "path": "^0.4.9"
+  },
   "devDependencies": {
     "chalk": "^0.4.0",
     "grunt": "^0.4.5",
@@ -39,6 +45,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "start": "node web.js"
   }
 }
