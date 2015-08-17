@@ -4,5 +4,5 @@ var app = express();
  
 app.use(express.logger('dev'));
 app.use(gzippo.staticGzip("" + __dirname + "/dist"));
-app.use(express.static("/dist/**/*.html"))
+app.use(express.static("/dist/**/*.html"));
 app.listen(process.env.PORT || 5000);
